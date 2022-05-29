@@ -1,0 +1,51 @@
+﻿<!doctype html>
+<html lang="en" x-data="{server: '/'}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Currency value converter for sigma males.">
+    <meta name="author" content="Antonio Jankoski">
+    <title>Currency Exchange</title>
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body x-data="{exchange: [], value: 1, from: '', to: ''}" x-init="exchange = await fetch(server+'exchange/get').then(x => x.json())">
+    <div class="border p-3 border-primary my-3 d-flex justify-content-around align-content-center" style="margin-right: 25% !important; margin-left: 25% !important;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Currency Exchange</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+        <div class="text-center">
+            <input x-model="value" id="value" class="form-control" type="number" />
+            <input x-model="from" class="form-control" list="currencies" id="sourceCurrency" placeholder="Ex: USD">
+            <label x-text="findCurrency(exchange, from)?.name || 'No currency selected'"></label>
+        </div>
+        <div class="text-center">
+            <input id="output" :value="doExchange(exchange, value, from, to)" readonly="readonly" class="form-control" type="number" />
+            <input x-model="to" class="form-control" list="currencies" id="sourceCurrency" placeholder="Ex: EUR">
+            <label x-text="findCurrency(exchange, to)?.name || 'No currency selected'"></label>
+        </div>
+        <datalist id="currencies">
+            <template x-for="currency in exchange">
+                <option :value="currency.symbol">
+            </template>
+        </datalist>
+    </div>
+    <div class="text-center">&copy; 2022 Antonio Jankoski</div>
+    <script>
+        function findCurrency(exchange, symbol) {
+            return exchange.find(currency => currency.symbol.toLowerCase() === symbol.toLowerCase())
+        }
+        function doExchange(exchange, value, from, to) {
+            const fromCurrency = findCurrency(exchange, from)
+            const toCurrency = findCurrency(exchange, to)
+            if (!fromCurrency || !toCurrency) {
+                return 0
+            }
+            return parseFloat(((fromCurrency.valueInUsd * value) / toCurrency.valueInUsd).toFixed(2))
+        }
+    </script>
+</body>
+</html>
