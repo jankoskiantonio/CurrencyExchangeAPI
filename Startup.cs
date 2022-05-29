@@ -53,7 +53,7 @@ namespace CurrencyExchangeAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCoreAdminCustomAuth((serviceProvider) =>
                 Task.FromResult(true));
