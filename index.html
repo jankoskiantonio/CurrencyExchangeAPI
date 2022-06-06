@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Currency value converter for sigma males.">
-    <meta name="author" content="Antonio Jankoski">
+    <meta name="description" content="Currency value converter.">
+    <meta name="author" content="Antonio Jankoski, Nikola Jovanoski">
     <title>Currency Exchange</title>
     <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -33,7 +33,7 @@
             </template>
         </datalist>
     </div>
-    <div class="text-center">&copy; 2022 Antonio Jankoski</div>
+    <div class="text-center">&copy; 2022 Antonio Jankoski, Nikola Jovanoski</div>
     <script>
         function findCurrency(exchange, symbol) {
             return exchange.find(currency => currency.symbol.toLowerCase() === symbol.toLowerCase())
